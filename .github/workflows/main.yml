@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Get tag
-      id: get_tag
-      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+    - name: Get branch
+      id: get_branch
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/branches\//}
     - name: Build linux amd64
       id: build_exe
       run: |
@@ -25,8 +25,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.get_tag.outputs.VERSION }}
-        release_name: ${{ steps.get_tag.outputs.VERSION }}
+        tag_name: ${{ steps.get_branch.outputs.VERSION }}
+        release_name: ${{ steps.get_branch.outputs.VERSION }}
         body: Test release
         draft: false
         prerelease: false
