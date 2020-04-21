@@ -14,6 +14,7 @@ jobs:
       id: get_branch
       run: |
         echo "$GITHUB_REF"
+        echo "${GITHUB_REF/refs\/heads\//}"
         echo ::set-output name=VERSION::${GITHUB_REF/refs\/heads\//}
     - name: Build linux amd64
       id: build_exe
