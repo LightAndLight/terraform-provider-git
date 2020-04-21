@@ -12,7 +12,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Get branch
       id: get_branch
-      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/branches\//}
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/heads\//}
     - name: Build linux amd64
       id: build_exe
       run: |
