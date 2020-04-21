@@ -1,4 +1,4 @@
 #! /usr/bin/env sh
 set -eu
 
-go build -o "$1"/terraform-provider-git
+go build -o "$1"/terraform-provider-git src/*.go
