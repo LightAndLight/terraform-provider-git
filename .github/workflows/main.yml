@@ -17,9 +17,10 @@ jobs:
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
     - name: Build linux amd64
       id: build_exe
-      run: 'GOOS=linux GOARCH=amd64 go build -o terraform-provider-git-${{ steps.get_version.outputs.VERSION }} src/*'
-      outputs:
-        exe_name: terraform-provider-git-${{steps.get_version.outputs.VERSION }}
+      run: |
+        export EXE_NAME=terraform-provider-git-${{ steps.get_version.outputs.VERSION }}
+        GOOS=linux GOARCH=amd64 go build -o "$EXE_NAME" src/*
+        echo ::set-output name=exe_name::"$EXE_NAME"
     - name: Create Release
       id: create_release
       uses: actions/create-release@latest
