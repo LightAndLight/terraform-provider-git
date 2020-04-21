@@ -10,17 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Get branch
-      id: get_branch
+    - name: Get version
+      id: get_version
       run: |
-        echo "${GITHUB_REF/refs\/heads\//}"
         echo ::set-output name=version::"${GITHUB_REF/refs\/heads\//}"
     - name: Build linux amd64
       id: build_exe
       env:
         EXE_NAME: terraform-provider-git-${{ steps.get_version.outputs.version }}
       run: |
-        echo "$EXE_NAME"
+        echo "Building $EXE_NAME..."
         GOOS=linux GOARCH=amd64 go build -o "$EXE_NAME" src/*
         echo ::set-output name=exe_name::"$EXE_NAME"
     - name: Create Release
