@@ -16,15 +16,18 @@ jobs:
       id: get_tag
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
     - name: Build linux amd64
+      id: build_exe
       run: 'GOOS=linux GOARCH=amd64 go build -o terraform-provider-git-${{ steps.get_version.outputs.VERSION }} src/*'
+      outputs:
+        exe_name: terraform-provider-git-${{steps.get_version.outputs.VERSION }}
     - name: Create Release
       id: create_release
       uses: actions/create-release@latest
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
+        tag_name: ${{ steps.get_tag.outputs.VERSION }}
+        release_name: ${{ steps.get_tag.outputs.VERSION }}
         body: Test release
         draft: false
         prerelease: false
@@ -35,6 +38,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: ./terraform-provider-git-${{ github.ref }}
-        asset_name: terraform-provider-git-${{ github.ref }}
+        asset_path: ./${{steps.build_exe.outputs.exe_name }}
+        asset_name: ${{steps.build_exe.outputs.exe_name }}
         asset_content_type: application/octet-stream
