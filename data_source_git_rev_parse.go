@@ -1,4 +1,4 @@
-package src
+package main
 
 import (
 	"io/ioutil"
@@ -13,6 +13,10 @@ func dataSourceGitRevParse() *schema.Resource {
 			"arg": &schema.Schema{
 				Type: schema.TypeString,
 				Required: true,
+			},
+			"hash": &schema.Schema{
+				Type: schema.TypeString,
+				Computed: true,
 			},
 		},
 	}
@@ -29,9 +33,14 @@ func DataSourceGitRevParseRead(d *schema.ResourceData, m interface{}) error {
 	stdout, err := cmd.StdoutPipe()
 	if err != nil { return err }
 
+	if err := cmd.Start(); err != nil { return err }
+
 	bytes, err := ioutil.ReadAll(stdout)
 	if err != nil { return err }
 
+	if err := cmd.Wait(); err != nil { return err }
+
+	d.SetId("rev-parse_commit")
 	d.Set("hash", string(bytes))
 
 	return nil

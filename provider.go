@@ -1,4 +1,4 @@
-package src
+package main
 
 import (
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
@@ -7,7 +7,7 @@ import (
 func Provider() *schema.Provider {
 	return &schema.Provider {
 		DataSourcesMap: map[string]*schema.Resource{
-			"git_rev_parse": dataSourceGitRevParse(),
+			"rev-parse_commit": dataSourceGitRevParse(),
 		},
 	}
 }
