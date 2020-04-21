@@ -7,7 +7,7 @@ import (
 func Provider() *schema.Provider {
 	return &schema.Provider {
 		DataSourcesMap: map[string]*schema.Resource{
-			"rev-parse_commit": dataSourceGitRevParse(),
+			"git_rev_parse": dataSourceGitRevParse(),
 		},
 	}
 }
