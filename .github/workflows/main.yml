@@ -14,6 +14,17 @@ jobs:
       id: get_version
       run: |
         echo ::set-output name=version::"${GITHUB_REF/refs\/heads\//}"
+    - name: Cache dependencies
+      id: cache-deps
+      uses: actions/cache@v1
+      with:
+        path: ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
+    - name: Download dependencies
+      if: steps.cache-deps.outputs.cache-hit != 'true'
+      run: go get
     - name: Build linux amd64
       id: build_exe
       env:
