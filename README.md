@@ -7,6 +7,7 @@ Data Sources for local git information
 `linux-amd64`
 
 ```
+mkdir -p ~/terraform.d/plugins
 curl \
     -L \
     -o ~/terraform.d/plugins/terraform-provider-git-v0.0.1 \

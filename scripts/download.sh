@@ -1,5 +1,6 @@
 #! /usr/bin/env sh
 
+mkdir -p ~/terraform.d/plugins
 curl \
     -L \
     -o ~/terraform.d/plugins/terraform-provider-git-v0.0.1 \
