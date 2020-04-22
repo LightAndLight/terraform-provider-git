@@ -17,7 +17,7 @@ jobs:
     - name: Build linux amd64
       id: build_exe
       env:
-        EXE_NAME: terraform-provider-git-${{ steps.get_version.outputs.version }}
+        EXE_NAME: terraform-provider-git_${{ steps.get_version.outputs.version }}
       run: |
         echo "Building $EXE_NAME..."
         GOOS=linux GOARCH=amd64 go build -o "$EXE_NAME" src/*
