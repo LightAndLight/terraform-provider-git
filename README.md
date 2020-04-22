@@ -14,3 +14,4 @@ curl \
     https://github.com/LightAndLight/terraform-provider-git/releases/download/v0.0.1/terraform-provider-git_v0.0.1
 chmod +x ~/.terraform.d/plugins/linux_amd64/terraform-provider-git_v0.0.1
 ```
+
