@@ -32,7 +32,7 @@ jobs:
           go build \
           -o "$EXE_NAME" \
           -ldflags "-linkmode external -extldflags -static" -a \
-          main
+          src/*
         echo ::set-output name=exe_name::"$EXE_NAME"
     - name: Create Release
       id: create_release
