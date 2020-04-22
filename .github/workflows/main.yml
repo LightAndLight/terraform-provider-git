@@ -20,7 +20,11 @@ jobs:
         EXE_NAME: terraform-provider-git_${{ steps.get_version.outputs.version }}
       run: |
         echo "Building $EXE_NAME..."
-        GOOS=linux GOARCH=amd64 go build -o "$EXE_NAME" src/*
+        GOOS=linux GOARCH=amd64 \
+          go build \
+          -o "$EXE_NAME" \
+          -ldflags "-linkmode external -extldflags -static" -a \
+          src/*
         echo ::set-output name=exe_name::"$EXE_NAME"
     - name: Create Release
       id: create_release
