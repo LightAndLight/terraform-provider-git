@@ -24,7 +24,7 @@ jobs:
           ${{ runner.os }}-go-
     - name: Download dependencies
       if: steps.cache-deps.outputs.cache-hit != 'true'
-      run: go get
+      run: go get main
     - name: Build linux amd64
       id: build_exe
       env:
