@@ -1,4 +1,6 @@
 #! /usr/bin/env sh
 set -eu
 
-go build -o "$1"/terraform-provider-git src/*.go
+OUT_FILE=out/terraform-provider-git
+go build -o "$OUT_FILE" src/*.go
+echo "wrote $OUT_FILE"
